@@ -1,0 +1,14 @@
+.machine{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
