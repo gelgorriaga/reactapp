@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-
+import uuid from "uuid/v4";
 export class NewBoxForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-    
-    this.state ={ height: "",width: "",color: ""};
-
-this.handleChange = this.handleChange.bind(this);
+        this.state = { height: "", width: "", color: "" };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 }
 
 handleChange (evt){
@@ -15,9 +14,20 @@ handleChange (evt){
     });
 }
 
+handleSubmit (evt) {
+    evt.preventDefault();
+    const newBox= {...this.state, id: uuid()}
+    this.props.createBox(newBox);
+    this.setState({
+        height: "", 
+        width: "", 
+        color: "" 
+    })
+}
+
     render() {
         return (
-            <form>
+            <form onSubmit = {this.handleSubmit}>
              <div>
                  <label htmlFor='height'>Height</label>
                  <input 
@@ -25,9 +35,33 @@ handleChange (evt){
                  name= "height" 
                  value = {this.state.height} 
                  id="height"
-                 onChance= {this.handleChange}
+                 onChange= {this.handleChange}
                  />
             </div>   
+
+            <div>
+                 <label htmlFor='width'>width</label>
+                 <input 
+                 type ='text' 
+                 name= "width" 
+                 value = {this.state.width} 
+                 id="width"
+                 onChange= {this.handleChange}
+                 />
+            </div>   
+
+            <div>
+                 <label htmlFor='color'>Color</label>
+                 <input 
+                 type ='text' 
+                 name= "color" 
+                 value = {this.state.color} 
+                 id="color"
+                 onChange= {this.handleChange}
+                 />
+                 </div>
+
+                 <button>Add new button</button>
             </form>
         )
     }
