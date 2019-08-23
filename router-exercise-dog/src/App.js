@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import whiskey from "./imgs/whiskey.jpg";
 import tubby from "./imgs/tubby.jpg";
 import hazel from "./imgs/hazel.jpg";
+import firulais from "./imgs/firulais.jpg";
 import "./App.css";
 
 class App extends Component {
@@ -38,7 +39,17 @@ class App extends Component {
           "Tubby does not like walks or exercise.",
           "Tubby loves eating food."
         ]
-      }
+      },
+      {
+        name: "Firulais",
+        age: 1,
+        src: firulais,
+        facts: [
+          "Firu is not the brightest dog",
+          "Firu its passive agressive.",
+          "Firu loves eating human food."
+        ]
+      },
     ]
   };
   render() {
