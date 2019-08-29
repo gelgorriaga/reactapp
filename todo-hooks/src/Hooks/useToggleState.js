@@ -1,10 +1,10 @@
 import {useState} from 'react';
 
-function useToggle(initialVal = false){
+function useToggleState(initialVal = false){
     const [state, setState] = useState(initialVal);
     const toggle = () =>{
         setState(!state);
     };
     return [state, toggle];
 }
-export  default useToggle;
+export  default useToggleState;
