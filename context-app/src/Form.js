@@ -14,65 +14,65 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles/FormStyles";
-import {LanguageContext} from './contexts/LanguageContext'
+import { LanguageContext } from "./contexts/LanguageContext";
 
 const words = {
-    english:{
-        signIn: "Sign in",
-        email: "Email",
-        password: "Password",
-        remember: "Remember Me"
-    },
-    french:{
-        signIn: "Se Connecter",
-        email: "Adresse Èlectronique",
-        password: "Mot de Passe",
-        remember: "Rappelle Moi"
-    },
-    spanish:{
-        signIn: "Registrarse",
-        email: "Correo Electrónico",
-        password: "Contraseña",
-        remember: "Recuérdame"
-    }
+  english: {
+    signIn: "Sign in",
+    email: "Email",
+    password: "Password",
+    remember: "Remember Me"
+  },
+  french: {
+    signIn: "Se Connecter",
+    email: "Adresse Èlectronique",
+    password: "Mot de Passe",
+    remember: "Rappelle Moi"
+  },
+  spanish: {
+    signIn: "Registrarse",
+    email: "Correo Electrónico",
+    password: "Contraseña",
+    remember: "Recuérdame"
+  }
 };
 
 class Form extends Component {
-    static contextType = LanguageContext;
+  static contextType = LanguageContext;
   render() {
-      const {language} = this.context;
+    const { language, changeLanguage } = this.context;
     const { classes } = this.props;
-    const {email, signIn, password, remember} = words[language]; //DESTRUCTURE THE OBJ WORDS INTO THE ONE THAT FITS LANGUAGE CONTEXT
+    const { email, signIn, password, remember } = words[language]; //DESTRUCTURE THE OBJ WORDS INTO THE ONE THAT FITS LANGUAGE CONTEXT
     return (
       <main className={classes.main}>
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography variant='h5'>{signIn}</Typography>
-          <Select value='english'>
-            <MenuItem value='english'>English</MenuItem>
-            <MenuItem value='french'>French</MenuItem>
-            <MenuItem value='spanish'>Spanish</MenuItem>
+          <Typography variant="h5">{signIn}</Typography>
+          <Select value={language} onChange={changeLanguage}>
+            <MenuItem value="english">English</MenuItem>
+            <MenuItem value="french">French</MenuItem>
+            <MenuItem value="spanish">Spanish</MenuItem>
           </Select>
           <form className={classes.form}>
-            <FormControl margin='normal' required fullWidth>
-              <InputLabel htmlFor='email'>{email}</InputLabel>
-              <Input id='email' name='email' autoFocus />
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="email">{email}</InputLabel>
+              <Input id="email" name="email" autoFocus />
             </FormControl>
-            <FormControl margin='normal' required fullWidth>
-              <InputLabel htmlFor='password'>{password}</InputLabel>
-              <Input id='password' name='password' autoFocus />
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">{password}</InputLabel>
+              <Input id="password" name="password" autoFocus />
             </FormControl>
             <FormControlLabel
-              control={<Checkbox color='primary' />}
+              control={<Checkbox color="primary" />}
               label={remember}
             />
             <Button
-              variant='contained'
-              type='submit'
+              variant="contained"
+              type="submit"
               fullWidth
-              color='primary'
+              color="primary"
               className={classes.submit}
             >
               {signIn}
