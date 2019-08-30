@@ -15,6 +15,9 @@ class NavBar extends Component {
         <NavLink exact to='/chart' activeClassName='Navbar-active' >
           Chart
         </NavLink>
+        <NavLink exact to='/favs' activeClassName='Navbar-active' >
+          Favourites
+        </NavLink>
       </div>
     );
   }

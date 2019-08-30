@@ -34,7 +34,7 @@ export class Navbar extends Component {
 
     const { isDarkMode, toggleTheme } = this.context;
     const { classes } = this.props;
-	const { language } = this.props.languageContext;
+	const { language } = this.props.languageContext; //needs to match the name and then context if it was {lang} it will be this.props.langContext
 	const { search, flag} = content[language];
     return (
       <div className={classes.root}>

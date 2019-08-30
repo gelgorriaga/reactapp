@@ -61,14 +61,20 @@ class App extends Component {
           let f = Math.floor((rawData.main.temp * 9) / 5 + 32);
           let fMin = Math.floor((rawData.main.temp_min * 9) / 5 + 32);
           let fMax = Math.floor((rawData.main.temp_max * 9) / 5 + 32);
-          this.setState({ temperature: f, temperatureType: temp, ok: true, maxTemp: fMax, minTemp: fMin });
+          this.setState({
+            temperature: f,
+            temperatureType: temp,
+            ok: true,
+            maxTemp: fMax,
+            minTemp: fMin
+          });
         } else {
           this.setState({
             temperature: Math.floor(rawData.main.temp),
             temperatureType: temp,
             ok: true,
-            maxTemp:Math.floor(rawData.main.temp_max),
-            minTemp:Math.floor(rawData.main.temp_min),
+            maxTemp: Math.floor(rawData.main.temp_max),
+            minTemp: Math.floor(rawData.main.temp_min)
           });
         }
       } else {
@@ -81,36 +87,47 @@ class App extends Component {
 
   render() {
     return (
-
-<div>
-      <BrowserRouter>
-        <NavBar />
-        <Switch>
-          <Route
-            path="/"
-            exact
-            render={() => (
-              <Home
-                temperature={this.state.temperature}
-                city={this.state.city}
-                country={this.state.country}
-                humidity={this.state.humidity}
-                description={this.state.description}
-                ok={this.state.ok}
-                temperatureType={this.state.temperatureType}
-                getData={this.getData}
-              />
-            )}
-          />
-          <Route
-            path="/chart"
-            exact
-            render={() => (
-              <Chart temperature={this.state.temperature} maxTemp={this.state.maxTemp} minTemp={this.state.minTemp}/>
-            )}
+      <div>
+        <BrowserRouter>
+          <NavBar />
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={() => (
+                <Home
+                  temperature={this.state.temperature}
+                  city={this.state.city}
+                  country={this.state.country}
+                  humidity={this.state.humidity}
+                  description={this.state.description}
+                  ok={this.state.ok}
+                  temperatureType={this.state.temperatureType}
+                  getData={this.getData}
+                />
+              )}
+            />
+            <Route
+              path="/chart"
+              exact
+              render={() => (
+                <Chart
+                  temperature={this.state.temperature}
+                  maxTemp={this.state.maxTemp}
+                  minTemp={this.state.minTemp}
+                />
+              )}
+            />
+            <Route
+              path="/favs"
+              exact
+              render={() => (
+                <h1>favourites</h1>
+                
+              )}
             />
           </Switch>
-      </BrowserRouter>
+        </BrowserRouter>
       </div>
     );
   }
