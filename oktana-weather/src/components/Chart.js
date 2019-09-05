@@ -11,23 +11,34 @@ class Chart extends Component {
   }
 
   render() {
-    console.log(this.props.chartData)
+    let date = this.props.rawData.list.map(d=>d.dt_txt);
+    let hum = this.props.rawData.list.map(h=>h.main.humidity);
+    let temp = this.props.rawData.list.map(t=>t.main.temp);
+    let pressure = this.props.rawData.list.map(t=>t.main.pressure);
+
+    let displayData = () =>{
+      switch(this.props.typeOfChart){
+        case 'temperature': return temp;
+        case 'pressure': return pressure;
+        case 'humidity': return hum;
+      }
+    }
+    
     return (
       <div className= "Chart">
-        <Bar
+{console.log('hum', hum)}
+{console.log('temp', temp)}
+{console.log('pressure', pressure)}
+        { <Line
           // data={this.state.chartData}
           data={
             {
-              labels: ["Min temp", "Avg temp", "Max temp"],
+              labels: date,
               datasets: [
                 {
-                  label: "Temperature",
-                  data: [this.props.minTemp, this.props.temperature, this.props.maxTemp],
-                  backgroundColor: [
-                    "rgba(82, 179, 217, 1)",
-                    "rgba(244, 179, 80, 1)",
-                    "rgba(214, 69, 65, 1)"
-                  ]
+                  label: this.props.typeOfChart,
+                  
+                  data: displayData()
                 }
               ]
             }
@@ -35,7 +46,7 @@ class Chart extends Component {
           options={{
             title: {
               display: true,
-              text: "Temperature chart",
+              text: `${this.props.typeOfChart} Chart`,
               fontSize: 50
             },
             legend: {
@@ -46,13 +57,13 @@ class Chart extends Component {
               yAxes: [
                 {
                   ticks: {
-                    beginAtZero: true
+                   //beginAtZero: true
                   }
                 }
               ]
             }
           }}
-        />
+        /> }
       </div>
     );
   }

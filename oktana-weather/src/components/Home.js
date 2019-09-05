@@ -17,13 +17,11 @@ class Home extends Component {
             <div className="form-container">
               <Form getData={this.props.getData} />
               <DisplayData
-                temperature={this.props.temperature}
+                sunrise={this.props.sunrise}
                 city={this.props.city}
                 country={this.props.country}
-                humidity={this.props.humidity}
-                description={this.props.description}
+                sunset={this.props.sunset}
                 ok={this.props.ok}
-                temperatureType={this.props.temperatureType}
               />
             </div>
           </div>

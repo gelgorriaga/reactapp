@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, withRouter } from "react-router-dom";
 import Chart from "./components/Chart";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
-
+import ChartForm from "./components/ChartForm";
 let appid = "f4a064fab6279ff8911f853cad2d6eba";
 
 class App extends Component {
@@ -11,72 +11,37 @@ class App extends Component {
     super(props);
 
     this.state = {
-      description: undefined,
+      rawData: undefined,
+      typeOfChart: 'temperature',
       city: undefined,
       country: undefined,
-      temperature: undefined,
-      minTemp: undefined,
-      maxTemp: undefined,
-      humidity: undefined,
-      temperatureType: "C",
+      sunrise: undefined,
+      sunset: undefined,
       ok: true,
       cod: undefined,
-      chartData: {
-        labels: ["Min temp", "Avg temp", "Max temp"],
-        datasets: [
-          {
-            label: "Temperature",
-            data: [12, 14, 16],
-            backgroundColor: [
-              "rgba(82, 179, 217, 1)",
-              "rgba(244, 179, 80, 1)",
-              "rgba(214, 69, 65, 1)"
-            ]
-          }
-        ]
-      }
     };
   }
+
 
   getData = async e => {
     try {
       e.preventDefault();
       const city = e.target.elements.city.value;
-      const temp = e.target.elements.temperature.value;
       if (city) {
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appid}&units=metric`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${appid}`
         );
         const rawData = await res.json();
         console.log(rawData);
         this.setState({
-          description: rawData.weather[0].description,
-          city: rawData.name,
-          country: rawData.sys.country,
-          humidity: rawData.main.humidity,
+          rawData:rawData,
+          city: rawData.city.name,
+          country: rawData.city.country,
+          sunrise: rawData.city.sunrise,
+          sunset: rawData.city.sunset,
           ok: true,
           cod: rawData.cod
         });
-        if (temp === "F") {
-          let f = Math.floor((rawData.main.temp * 9) / 5 + 32);
-          let fMin = Math.floor((rawData.main.temp_min * 9) / 5 + 32);
-          let fMax = Math.floor((rawData.main.temp_max * 9) / 5 + 32);
-          this.setState({
-            temperature: f,
-            temperatureType: temp,
-            ok: true,
-            maxTemp: fMax,
-            minTemp: fMin
-          });
-        } else {
-          this.setState({
-            temperature: Math.floor(rawData.main.temp),
-            temperatureType: temp,
-            ok: true,
-            maxTemp: Math.floor(rawData.main.temp_max),
-            minTemp: Math.floor(rawData.main.temp_min)
-          });
-        }
       } else {
         this.setState({ ok: false });
       }
@@ -84,6 +49,13 @@ class App extends Component {
       alert(`City not found`);
     }
   };
+
+  getChart = e =>{
+    e.preventDefault();
+    const typeOfChart = e.target.value;
+    this.setState({typeOfChart:typeOfChart}, ()=> console.log(this.state.typeOfChart));
+   
+  }
 
   render() {
     return (
@@ -96,13 +68,11 @@ class App extends Component {
               exact
               render={() => (
                 <Home
-                  temperature={this.state.temperature}
                   city={this.state.city}
                   country={this.state.country}
-                  humidity={this.state.humidity}
-                  description={this.state.description}
+                  sunrise={this.state.sunrise}
+                  sunset={this.state.sunset}
                   ok={this.state.ok}
-                  temperatureType={this.state.temperatureType}
                   getData={this.getData}
                 />
               )}
@@ -110,13 +80,12 @@ class App extends Component {
             <Route
               path="/chart"
               exact
-              render={() => (
-                <Chart
-                  temperature={this.state.temperature}
-                  maxTemp={this.state.maxTemp}
-                  minTemp={this.state.minTemp}
-                />
-              )}
+              render={() => 
+                <>
+                <ChartForm ChartForm getChart = {this.getChart} />
+                <Chart rawData={this.state.rawData} typeOfChart={this.state.typeOfChart}/>
+                </>
+              }
             />
             <Route
               path="/favs"

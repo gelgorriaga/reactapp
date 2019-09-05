@@ -60,6 +60,10 @@ body {
   padding-top: 100px;
   padding-left: 50px;
 }
+.ChartForm {
+  display: flex;
+  margin: 3rem 20rem;
+}
 
 input[type="text"] {
   background-color: transparent;
