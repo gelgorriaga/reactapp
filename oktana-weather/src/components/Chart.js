@@ -26,42 +26,63 @@ class Chart extends Component {
     
     return (
       <div className= "Chart">
-{console.log('hum', hum)}
-{console.log('temp', temp)}
-{console.log('pressure', pressure)}
+
         { <Line
-          // data={this.state.chartData}
           data={
             {
               labels: date,
               datasets: [
                 {
                   label: this.props.typeOfChart,
-                  
-                  data: displayData()
+                  fill:true,
+                  data: displayData(),
+                  backgroundColor: '#5F6368',
+                  pointBackgroundColor:'#fff',
+                  pointBorderColor:'red',
+                  borderColor:'rgba(0,0,0,0.3)'
                 }
               ]
             }
           }
           options={{
+            maintainAspectRatio : false,
+            animation: {
+              duration: 3000 // general animation time
+          },
             title: {
-              display: true,
+              display: false,
               text: `${this.props.typeOfChart} Chart`,
-              fontSize: 50
+              fontSize: 50,
+              fontColor: 'white'
             },
             legend: {
               display: true,
-              position: "right"
+              position: "right",
+              labels: {
+              fontColor: 'white'
+              }
             },
             scales: {
               yAxes: [
                 {
                   ticks: {
                    //beginAtZero: true
+                   
+              fontColor: 'white'
+                  }
+                }
+              ],
+              xAxes: [
+                {
+                  ticks: {
+                   //beginAtZero: true
+                   
+              fontColor: 'white'
                   }
                 }
               ]
-            }
+            },
+            
           }}
         /> }
       </div>

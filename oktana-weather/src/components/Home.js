@@ -11,9 +11,6 @@ class Home extends Component {
       <>
         <div>
           <div className="flexDiv">
-            <div className="title-container">
-              <Title layout="Oktana Weather" />
-            </div>
             <div className="form-container">
               <Form getData={this.props.getData} />
               <DisplayData
